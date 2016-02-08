@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>Map</title>
+
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />  
+
+</head>
+
+<body>
+
+<div id="map" style="height: 500px; width: 800px"> </div>
+
+  <script
+     src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+  </script>
+
+  <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+  <script>
+  var map = L.map('map').setView([44.051,-123.086], 13);
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 18,
+    id: 'lamfada.p313bafo',
+    accessToken: 'pk.eyJ1IjoibGFtZmFkYSIsImEiOiJjaWthMWVrY2cwaGs2dXhrcG4wMnoycjVoIn0.zWgoTMl4Ml8ClSmrqCwj7w'
+  }).addTo(map);
+  
+  
+  
+  {% for entry in session.poi %}
+    L.marker([Number("{{entry.lat}}"),Number("{{entry.lng}}")]).addTo(map).bindPopup("{{entry.name}}");
+  {% endfor %}
+ 
+</script>
+
+
+</body>
+</html>
